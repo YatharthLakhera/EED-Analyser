@@ -1,0 +1,47 @@
+{
+  "name": "EE Distribution Analyser",
+  "version": "1.0",
+  "description": "Analysing EE Distribution site for products and important data",
+  "permissions": ["storage", "tabs", "scripting"],
+  "host_permissions": ["https://www.eedistribution.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.eedistribution.com/hitlist*"],
+      "js": ["scripts/eedistribution/listPageParser.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["https://www.eedistribution.com/prodinfo*"],
+      "js": ["scripts/eedistribution/productPageParser.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/bookmark.png",
+        "assets/play.png",
+        "assets/delete.png",
+        "assets/save.png",
+        "utils.js",
+        "chromeApi.js",
+        "libs/xlsx.full.min.js",
+        "dashboard/index.html"
+      ],
+      "matches": ["https://*.eedistribution.com/*"]
+    }
+  ],
+  "action": {
+    "default_icon": {
+      "16": "assets/icon-16.png",
+      "32": "assets/icon-32.png",
+      "128": "assets/icon-128.png"
+    },
+    "default_title": "EE Distribution Analyser",
+    "default_popup": "popup.html"
+  },
+  "manifest_version": 3
+}
